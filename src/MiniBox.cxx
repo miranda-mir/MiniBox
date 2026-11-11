@@ -3,19 +3,19 @@
 int
 main(int argc, char *argv[]) {
     char *_basename = basename(argv[0]);
-	if (strcmp(_basename, BINARY_NAME) == 0)
+	if (std::strcmp(_basename, BINARY_NAME) == 0)
 	{
 		if (argc == 1)
 		{
 			usage();
 		}
 		
-		else if (argc == 2 && (strcmp(argv[1], "--help") == 0))
+		else if (argc == 2 && (std::strcmp(argv[1], "--help") == 0))
 		{
 			usage();
 		}
 		
-		else if (argc == 2 && (strcmp(argv[1], "--version") == 0))
+		else if (argc == 2 && (std::strcmp(argv[1], "--version") == 0))
 		{
 			version();
 		}
@@ -42,11 +42,11 @@ BINARY_NAME " command [[arguments]...]\n\n"
 "and Toybox." << std::endl << std::endl <<
 "MiniBox Source Code <https://github.com/ayuzzh/MiniBox>\n"
 "Email Us for bugs <kmayushkm@gmail.com>\n";
-        exit(SUCC_CODE);
+        std::exit(SUCC_CODE);
 }
 
 void
 version() {
         std::cout << MINIBOX_NAME << " " << MINIBOX_VERSION << std::endl;
-        exit(SUCC_CODE);
+        std::exit(SUCC_CODE);
 }

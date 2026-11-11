@@ -11,7 +11,7 @@ std::string term;
 void
 reset_usage() {
     std::cout << "usage: reset screen" << std::endl;
-    exit(SUCC_CODE);
+    std::exit(SUCC_CODE);
 }
 
 void
@@ -55,9 +55,9 @@ reset_term(std::string term) {
 
 int
 reset_main(int argc, char *argv[]) {
-    if (argc == 2 && (strcmp(argv[1], "--version") == 0)) {
+    if (argc == 2 && (std::strcmp(argv[1], "--version") == 0)) {
         version();
-    } else if (argc == 2 && (strcmp(argv[1], "--help") == 0)) {
+    } else if (argc == 2 && (std::strcmp(argv[1], "--help") == 0)) {
         reset_usage();
     } else {
         if(rterm != NULL) {
@@ -82,6 +82,6 @@ reset_main(int argc, char *argv[]) {
             reset_term(newterm);
         }
     }
-    exit(SUCC_CODE);
+    std::exit(SUCC_CODE);
 }
 #endif

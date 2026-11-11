@@ -4,6 +4,6 @@
 
 int
 true_main() {
-    exit(SUCC_CODE);
+    std::exit(SUCC_CODE);
 }
 #endif

@@ -11,18 +11,19 @@ clear_usage() {
 void
 clear_version() {
     std::cout << MINIBOX_NAME << " " << MINIBOX_VERSION << std::endl;
-    exit(SUCC_CODE);
+    std::exit(SUCC_CODE);
 }
 
 int
 clear_main(int argc, char *argv[]) {
-    if (argc == 2 && (strcmp(argv[1], "--version") == 0)) {
+    if (argc == 2 && (std::strcmp(argv[1], "--version") == 0)) {
         clear_version();
-    } else if (argc == 2 && (strcmp(argv[1], "--help") == 0)) {
+    } else if (argc == 2 && (std::strcmp(argv[1], "--help") == 0)) {
         clear_usage();
     } else {
         std::cout << "\033[H\033[2J\033[3J" << std::flush;
-        exit(SUCC_CODE);
     }
+
+    std::exit(SUCC_CODE);
 }
 #endif

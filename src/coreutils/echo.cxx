@@ -15,7 +15,7 @@ just_echo(char* s) {
 void
 echo_usage() {
     std::cout << "usage: echo [string]" << std::endl;
-    exit(SUCC_CODE);
+    std::exit(SUCC_CODE);
 }
 
 void
@@ -54,6 +54,6 @@ echo_main(int argc, char *argv[]) {
         std::cout << "\n";
     }
 
-    exit(SUCC_CODE);
+    std::exit(SUCC_CODE);
 }
 #endif

@@ -4,6 +4,6 @@
 
 int
 false_main() {
-    exit(ERR_CODE);
+    std::exit(ERR_CODE);
 }
 #endif
