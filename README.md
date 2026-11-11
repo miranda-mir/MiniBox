@@ -22,3 +22,11 @@ already have previous knowledge of using terminal and basic linux commands.__
 
 5. Now its finale step of compiling MiniBox `make -j$(nproc --ignore=1)`. 
 Now the executable is found in build. Execute it by typing `./minibox`.
+
+## Supported STLs
+It is known that `minibox` compiles in the following
+STL implementations:
+
+* uClibc++ 0.2.5 (tested with g++)
+
+Working in a STL not listed here? Add it and sent a pull request.
