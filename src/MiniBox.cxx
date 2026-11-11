@@ -2,7 +2,7 @@
 
 int
 main(int argc, char *argv[]) {
-    char *_basename = basename(argv[0]);
+    char *_basename = std::strrchr(argv[0], '/') ? std::strrchr(argv[0], '/') + 1 : argv[0];
 	if (std::strcmp(_basename, BINARY_NAME) == 0)
 	{
 		if (argc == 1)
