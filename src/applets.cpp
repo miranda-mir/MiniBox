@@ -46,6 +46,13 @@ void applets_call(int argc, char *argv[])
 	}
 #endif
 
+#if RESET_BUILD == ON
+	else if (strcmp(argv[1], "reset") == 0)
+	{
+		reset_main(_argc, _argv);
+	}
+#endif
+
 	else
 	{
 		std::cout << argv[1] << ": " << CMD_NOT_FOUND << std::endl;
@@ -87,6 +94,13 @@ applets_as_main(int argc, char *argv[]) {
 	else if (strcmp(_basename, "clear") == 0)
 	{
 		clear_main(argc, argv);
+	}
+#endif
+
+#if CLEAR_BUILD == ON
+	else if (strcmp(_basename, "reset") == 0)
+	{
+		reset_main(argc, argv);
 	}
 #endif
 

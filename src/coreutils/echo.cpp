@@ -18,13 +18,7 @@ just_echo(char* s) {
 
 void
 echo_usage() {
-    std::cout << "test usage" << std::endl;
-    exit(SUCC_CODE);
-}
-
-void
-echo_version() {
-    std::cout << MINIBOX_NAME << " " << MINIBOX_VERSION << std::endl;
+    std::cout << "usage: echo [string]" << std::endl;
     exit(SUCC_CODE);
 }
 
@@ -48,7 +42,7 @@ option_manager(char *o) {
 int
 echo_main(int argc, char *argv[]) {
     if (argc == 2 && (strcmp(argv[1], "--version") == 0)) {
-        echo_version();
+        version();
     } else if (argc == 2 && (strcmp(argv[1], "--help") == 0)) {
         echo_usage();
     } else {
