@@ -7,7 +7,7 @@
 void applets_call(int argc, char *argv[])
 {
 	int _argc = argc - 1;
-	char *_argv[_argc];
+	char** _argv = new char*[_argc];
 
 	for (int i = 0; i < _argc; i++)
 	{
@@ -30,6 +30,8 @@ void applets_call(int argc, char *argv[])
 		std::cout << argv[1] << ": Unknown Command\n";
 		exit(1);
 	}
+
+	delete[] _argv;
 }
 
 void applets_as_main(int argc, char *argv[])
