@@ -20,35 +20,35 @@ configure_file(MiniBoxConfig.h.in config.h)
 
 # Echo command
 if(ECHO STREQUAL ON)
-	set(COREUTILS_ECHO_SOURCE src/coreutils/echo.cpp)
+	set(COREUTILS_ECHO_SOURCE src/coreutils/echo.cxx)
 else()
 	set(COREUTILS_ECHO_SOURCE "")
 endif()
 
 # True command
 if(TRUE STREQUAL ON)
-	set(COREUTILS_TRUE_SOURCE src/coreutils/true.cpp)
+	set(COREUTILS_TRUE_SOURCE src/coreutils/true.cxx)
 else()
 	set(COREUTILS_TRUE_SOURCE "")
 endif()
 
 # False command
 if(FALSE STREQUAL ON)
-	set(COREUTILS_FALSE_SOURCE src/coreutils/false.cpp)
+	set(COREUTILS_FALSE_SOURCE src/coreutils/false.cxx)
 else()
 	set(COREUTILS_FALSE_SOURCE "")
 endif()
 
 # Clear command
 if(CLEAR STREQUAL ON)
-	set(TERMUTILS_CLEAR_SOURCE src/termutils/clear.cpp)
+	set(TERMUTILS_CLEAR_SOURCE src/termutils/clear.cxx)
 else()
 	set(TERMUTILS_CLEAR_SOURCE "")
 endif()
 
 # Reset command
 if(RESET STREQUAL ON)
-	set(TERMUTILS_RESET_SOURCE src/termutils/reset.cpp)
+	set(TERMUTILS_RESET_SOURCE src/termutils/reset.cxx)
 else()
 	set(TERMUTILS_RESET_SOURCE "")
 endif()
@@ -57,8 +57,8 @@ endif()
 add_executable(
 	${TARGET_BINARY}
 
-	src/MiniBox.cpp
-	src/applets.cpp
+	src/MiniBox.cxx
+	src/applets.cxx
 
 	${COREUTILS_ECHO_SOURCE}
         ${COREUTILS_TRUE_SOURCE}
