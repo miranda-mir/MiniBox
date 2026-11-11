@@ -22,8 +22,8 @@ BINARY_NAME " command [[arguments]...]\n\n"
 
 void
 version() {
-	std::cout << "Print version here" << std::endl;
-	exit(ERR_CODE);
+	std::cout << MINIBOX_NAME << " " << MINIBOX_VERSION << std::endl;
+	exit(SUCC_CODE);
 }
 
 #endif

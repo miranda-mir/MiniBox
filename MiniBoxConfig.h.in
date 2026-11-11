@@ -2,6 +2,8 @@
 #define CONFIG
 
 #define BINARY_NAME "@TARGET_BINARY@"
+#define MINIBOX_VERSION "@PROJECT_VERSION@"
+#define MINIBOX_NAME "@PROJECT_NAME@"
 
 #define ON 1
 #define OFF 0
@@ -14,5 +16,6 @@
 #define ECHO_BUILD @ECHO_BUILD@
 #define TRUE_BUILD @TRUE_BUILD@
 #define FALSE_BUILD @FALSE_BUILD@
+#define CLEAR_BUILD @CLEAR_BUILD@
 
 #endif
