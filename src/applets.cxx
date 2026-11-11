@@ -60,7 +60,7 @@ void applets_call(int argc, char *argv[])
 
 void
 applets_as_main(int argc, char *argv[]) {
-	char* _basename = basename(argv[0]);
+	char* _basename = std::strrchr(argv[0], '/') ? std::strrchr(argv[0], '/') + 1 : argv[0];
 	if (1 == 2)
 	{ /*This will never execute*/
 	}
