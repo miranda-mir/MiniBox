@@ -3,7 +3,6 @@
 
 #include <config.h>
 #include <applets.hxx>
-#include <headers.hxx>
 #include <outputmsg.hxx>
 
 #include <iostream>

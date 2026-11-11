@@ -1,7 +1,4 @@
-#include <iostream>
-
-#include <config.h>
-#include <applets.hpp>
+#include <minibox.hxx>
 
 #if FALSE_BUILD == 1
 

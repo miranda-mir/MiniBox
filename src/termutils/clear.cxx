@@ -1,8 +1,4 @@
-#include <iostream>
-#include <string>
-
-#include <config.h>
-#include <applets.hpp>
+#include <minibox.hxx>
 
 #if CLEAR_BUILD == 1
 

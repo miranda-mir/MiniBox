@@ -1,8 +1,4 @@
-#include <iostream>
-#include <string>
-
-#include <applets.hpp>
-#include <config.h>
+#include <minibox.hxx>
 
 void applets_call(int argc, char *argv[])
 {
