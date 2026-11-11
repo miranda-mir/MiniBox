@@ -5,8 +5,8 @@
 #include <config.h>
 #include <headers.hpp>
 
-int main(int argc, char *argv[])
-{
+int
+main(int argc, char *argv[]) {
     char *_basename = basename(argv[0]);
 	if (strcmp(_basename, BINARY_NAME) == 0)
 	{

@@ -9,27 +9,27 @@
 bool newline = true;
 bool interpretation = false;
 
-void just_echo(char* s)
-{
+void
+just_echo(char* s) {
 	// For checking the interpretation of the string
 	// Code for interpretation not written yet
 	std::cout << s << " ";
 }
 
-void echo_usage()
-{
+void
+echo_usage() {
     printf("test usage");
     exit(0);
 }
 
-void echo_version()
-{
+void
+echo_version() {
     printf("test versiin");
     exit(0);
 }
 
-void option_manager(char *o)
-{
+void
+option_manager(char *o) {
     if (strcmp(o, "-") == 0)
     {
         std::cout << o;
@@ -55,8 +55,8 @@ void option_manager(char *o)
     }
 }
 
-int echo_main(int argc, char *argv[])
-{
+int
+echo_main(int argc, char *argv[]) {
     if (argc == 2 && (strcmp(argv[1], "--version") == 0))
     {
         echo_version();

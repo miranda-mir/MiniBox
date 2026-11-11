@@ -25,17 +25,24 @@ void applets_call(int argc, char *argv[])
 	}
 #endif
 
+#if TRUE_BUILD == ON
+	else if (strcmp(argv[1], "true") == 0)
+	{
+		true_main();
+	}
+#endif
+
 	else
 	{
-		std::cout << argv[1] << ": Unknown Command\n";
-		exit(1);
+		std::cout << argv[1] << ": " << CMD_NOT_FOUND << std::endl;
+		exit(ERR_CODE);
 	}
 
 	delete[] _argv;
 }
 
-void applets_as_main(int argc, char *argv[])
-{
+void
+applets_as_main(int argc, char *argv[]) {
 	char* _basename = basename(argv[0]);
 	if (1 == 2)
 	{ /*This will never execute*/
@@ -48,9 +55,16 @@ void applets_as_main(int argc, char *argv[])
 	}
 #endif
 
+#if TRUE_BUILD == ON
+	else if (strcmp(_basename, "true") == 0)
+	{
+		true_main();
+	}
+#endif
+
 	else
 	{
-		std::cout << argv[0] << ": Unknown command\n";
-		exit(1);
+		std::cout << argv[0] << ": " << CMD_NOT_FOUND << std::endl;
+		exit(ERR_CODE);
 	}
 }

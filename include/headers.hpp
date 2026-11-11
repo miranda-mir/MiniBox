@@ -6,8 +6,8 @@
 #ifndef HEADERS
 #define HEADERS
 
-void usage()
-{
+void
+usage() {
 	std::cout << "Usage:\n"
 BINARY_NAME " --version\n"
 BINARY_NAME " --help\n"
@@ -20,8 +20,8 @@ BINARY_NAME " command [[arguments]...]\n\n"
 	exit(0);
 }
 
-void version()
-{
+void
+version() {
 	std::cout << "Print version here" << std::endl;
 	exit(1);
 }

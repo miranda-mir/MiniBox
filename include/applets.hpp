@@ -4,6 +4,7 @@
 #define APLLETS
 
 int echo_main(int argc, char* argv[]);
+int true_main();
 
 void applets_call(int argc, char* argv[]);
 void applets_as_main(int argc, char* argv[]);
