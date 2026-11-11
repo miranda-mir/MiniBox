@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+cd -P -- "$(dirname -- "$0")"
+
+echo "-- Assuming you meant: cmake -S . -B build"
+
+cmake -S . -B build
+
+exit 0
