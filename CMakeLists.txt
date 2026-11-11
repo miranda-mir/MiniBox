@@ -6,9 +6,11 @@ set(TARGET_BINARY "minibox")
 
 option(ECHO "compile ECHO command" ON)
 option(TRUE "compile TRUE command" ON)
+option(FALSE "compile FALSE command" ON)
 
 set(ECHO_BUILD ${ECHO})
 set(TRUE_BUILD ${TRUE})
+set(FALSE_BUILD ${FALSE})
 
 configure_file(MiniBoxConfig.h.in config.h)
 
@@ -26,6 +28,13 @@ else()
 	set(COREUTILS_TRUE_SOURCE "")
 endif()
 
+# False command
+if(FALSE STREQUAL ON)
+	set(COREUTILS_FALSE_SOURCE src/coreutils/false.cpp)
+else()
+	set(COREUTILS_FALSE_SOURCE "")
+endif()
+
 
 add_executable(
 	${TARGET_BINARY}
@@ -35,6 +44,7 @@ add_executable(
 
 	${COREUTILS_ECHO_SOURCE}
         ${COREUTILS_TRUE_SOURCE}
+        ${COREUTILS_FALSE_SOURCE}
 )
 
 target_include_directories(

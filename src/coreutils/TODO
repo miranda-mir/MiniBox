@@ -26,7 +26,6 @@
 * Write source code for expand applet
 * Write source code for expr applet
 * Write source code for factor applet
-* Write source code for false applet
 * Write source code for fmt applet
 * Write source code for fold applet
 * Write source code for ginstall applet
@@ -86,7 +85,6 @@
 * Write source code for timeout applet
 * Write source code for touch applet
 * Write source code for tr applet
-* Write source code for true applet
 * Write source code for truncate applet
 * Write source code for tsort applet
 * Write source code for tty applet

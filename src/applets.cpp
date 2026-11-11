@@ -32,6 +32,13 @@ void applets_call(int argc, char *argv[])
 	}
 #endif
 
+#if FALSE_BUILD == ON
+	else if (strcmp(argv[1], "false") == 0)
+	{
+		false_main();
+	}
+#endif
+
 	else
 	{
 		std::cout << argv[1] << ": " << CMD_NOT_FOUND << std::endl;
@@ -59,6 +66,13 @@ applets_as_main(int argc, char *argv[]) {
 	else if (strcmp(_basename, "true") == 0)
 	{
 		true_main();
+	}
+#endif
+
+#if FALSE_BUILD == ON
+	else if (strcmp(_basename, "false") == 0)
+	{
+		false_main();
 	}
 #endif
 

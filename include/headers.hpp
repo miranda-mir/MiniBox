@@ -17,13 +17,13 @@ BINARY_NAME " command [[arguments]...]\n\n"
 "and Toybox." << std::endl << std::endl <<
 "MiniBox Source Code <https://github.com/ayuzzh/MiniBox>\n"
 "Email Us for bugs <kmayushkm@gmail.com>\n";
-	exit(0);
+	exit(SUCC_CODE);
 }
 
 void
 version() {
 	std::cout << "Print version here" << std::endl;
-	exit(1);
+	exit(ERR_CODE);
 }
 
 #endif

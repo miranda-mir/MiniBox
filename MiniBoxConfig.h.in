@@ -13,5 +13,6 @@
 
 #define ECHO_BUILD @ECHO_BUILD@
 #define TRUE_BUILD @TRUE_BUILD@
+#define FALSE_BUILD @FALSE_BUILD@
 
 #endif
