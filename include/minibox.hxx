@@ -12,5 +12,10 @@
 #include <cstring>
 #include <iostream>
 #include <string>
+#include <unistd.h>
+
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif
 
 #endif

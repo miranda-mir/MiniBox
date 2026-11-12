@@ -23,7 +23,7 @@ minibox_add_applet(reset
     SOURCES src/termutils/reset.cxx
 )
 
-minibox_add_applet(yes
-    ENTRY yes_main
-    SOURCES src/coreutils/yes.cxx
+minibox_add_applet(sleep
+    ENTRY sleep_main
+    SOURCES src/coreutils/sleep.cxx
 )
