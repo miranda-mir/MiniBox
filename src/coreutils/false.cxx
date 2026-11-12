@@ -1,9 +1,7 @@
 #include <minibox.hxx>
 
-#if FALSE_BUILD == 1
 
 int
-false_main() {
-    std::exit(ERR_CODE);
+false_main(int argc, char *argv[]) {
+    return ERR_CODE;
 }
-#endif

@@ -1,17 +1,9 @@
-#ifndef APPLETS
-#define APLLETS
+#ifndef MINIBOX_APPLETS_HXX
+#define MINIBOX_APPLETS_HXX
 
-#include <config.h>
+int applets_call(int argc, char** argv);
+int applets_as_main(int argc, char** argv);
+int applets_list();
+int minibox_version();
 
-int echo_main(int argc, char* argv[]);
-int true_main();
-int false_main();
-int clear_main(int argc, char *argv[]);
-int reset_main(int argc, char *argv[]);
-
-void applets_call(int argc, char* argv[]);
-void applets_as_main(int argc, char* argv[]);
-void usage();
-void version();
-
-#endif	/*APPLETS*/
+#endif

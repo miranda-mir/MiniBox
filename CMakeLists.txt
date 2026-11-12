@@ -1,85 +1,70 @@
-cmake_minimum_required(VERSION 3.20.3)
+cmake_minimum_required(VERSION 3.20)
 
-project(MiniBox VERSION 0.1.2)
+project(MiniBox VERSION 0.2 LANGUAGES CXX)
 
-set(TARGET_BINARY "minibox")
+set(CMAKE_CXX_STANDARD 98)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(ECHO "compile ECHO command" ON)
-option(TRUE "compile TRUE command" ON)
-option(FALSE "compile FALSE command" ON)
-option(CLEAR "compile CLEAR command" ON)
-option(RESET "compile RESET command" ON)
+set(TARGET_BINARY minibox)
 
-set(ECHO_BUILD ${ECHO})
-set(TRUE_BUILD ${TRUE})
-set(FALSE_BUILD ${FALSE})
-set(CLEAR_BUILD ${CLEAR})
-set(RESET_BUILD ${RESET})
+set(GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
+file(MAKE_DIRECTORY "${GENERATED_DIR}")
 
-configure_file(MiniBoxConfig.h.in config.h)
-
-# Echo command
-if(ECHO STREQUAL ON)
-	set(COREUTILS_ECHO_SOURCE src/coreutils/echo.cxx)
-else()
-	set(COREUTILS_ECHO_SOURCE "")
-endif()
-
-# True command
-if(TRUE STREQUAL ON)
-	set(COREUTILS_TRUE_SOURCE src/coreutils/true.cxx)
-else()
-	set(COREUTILS_TRUE_SOURCE "")
-endif()
-
-# False command
-if(FALSE STREQUAL ON)
-	set(COREUTILS_FALSE_SOURCE src/coreutils/false.cxx)
-else()
-	set(COREUTILS_FALSE_SOURCE "")
-endif()
-
-# Clear command
-if(CLEAR STREQUAL ON)
-	set(TERMUTILS_CLEAR_SOURCE src/termutils/clear.cxx)
-else()
-	set(TERMUTILS_CLEAR_SOURCE "")
-endif()
-
-# Reset command
-if(RESET STREQUAL ON)
-	set(TERMUTILS_RESET_SOURCE src/termutils/reset.cxx)
-else()
-	set(TERMUTILS_RESET_SOURCE "")
-endif()
-
-
-add_executable(
-	${TARGET_BINARY}
-
-	src/MiniBox.cxx
-	src/applets.cxx
-
-	${COREUTILS_ECHO_SOURCE}
-        ${COREUTILS_TRUE_SOURCE}
-        ${COREUTILS_FALSE_SOURCE}
-        ${TERMUTILS_CLEAR_SOURCE}
-        ${TERMUTILS_RESET_SOURCE}
+add_compile_options(
+    -Wall
+    -Wextra
+    -std=c++98
+    -pedantic
+    -fno-unwind-tables
+    -fno-exceptions
 )
 
-target_include_directories(
-	${TARGET_BINARY} PUBLIC
-	include/
-	${CMAKE_BINARY_DIR}
+configure_file(
+    "${PROJECT_SOURCE_DIR}/MiniBoxConfig.h.in"
+    "${GENERATED_DIR}/MiniBoxConfig.h"
+    @ONLY
 )
 
-target_compile_options(
-	${TARGET_BINARY} PRIVATE
-	-Wall
-	-Wextra
-	-std=c++98
-	-pedantic-errors
-	-fno-exceptions
-	-fno-unwind-tables
-	-fno-asynchronous-unwind-tables
+add_executable(minibox
+    src/MiniBox.cxx
+    src/applets.cxx
+)
+
+set_target_properties(minibox PROPERTIES
+    OUTPUT_NAME "${TARGET_BINARY}"
+)
+
+target_include_directories(minibox PRIVATE
+    "${PROJECT_SOURCE_DIR}/include"
+    "${GENERATED_DIR}"
+)
+
+set_property(GLOBAL PROPERTY MINIBOX_APPLET_NAMES "")
+set_property(GLOBAL PROPERTY MINIBOX_APPLET_ENTRIES "")
+set_property(GLOBAL PROPERTY MINIBOX_APPLET_DECLARATIONS "")
+set_property(GLOBAL PROPERTY MINIBOX_APPLET_ENTRY_NAMES "")
+set_property(GLOBAL PROPERTY MINIBOX_APPLET_OPTION_NAMES "")
+
+include(cmake/Applets.cmake)
+include(cmake/AppletsManifest.cmake)
+
+get_property(APPLET_DECLARATIONS GLOBAL
+    PROPERTY MINIBOX_APPLET_DECLARATIONS
+)
+get_property(APPLET_ENTRIES GLOBAL
+    PROPERTY MINIBOX_APPLET_ENTRIES
+)
+
+string(JOIN "\n" APPLET_DECLARATIONS_TEXT ${APPLET_DECLARATIONS})
+string(JOIN "\n" APPLET_ENTRIES_TEXT ${APPLET_ENTRIES})
+
+configure_file(
+    "${PROJECT_SOURCE_DIR}/cmake/AppletRegistry.cxx.in"
+    "${GENERATED_DIR}/AppletRegistry.cxx"
+    @ONLY
+)
+
+target_sources(minibox PRIVATE
+    "${GENERATED_DIR}/AppletRegistry.cxx"
 )

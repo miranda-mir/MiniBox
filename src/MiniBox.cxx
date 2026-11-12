@@ -1,52 +1,51 @@
 #include <minibox.hxx>
 
+namespace {
+    const char*
+    program_basename(const char* path) {
+        const char* slash = std::strrchr(path, '/');
+        return slash ? slash + 1 : path;
+    }
+
+    void
+    usage() {
+        std::cout
+            << "Usage:\n"
+            << MINIBOX_BINARY_NAME << " --version\n"
+            << MINIBOX_BINARY_NAME << " --help\n"
+            << MINIBOX_BINARY_NAME << " --list\n"
+            << MINIBOX_BINARY_NAME << " command [[arguments]...]\n\n"
+            << "MiniBox is a multicall utility.\n";
+    }
+}
+
 int
-main(int argc, char *argv[]) {
-    char *_basename = std::strrchr(argv[0], '/') ? std::strrchr(argv[0], '/') + 1 : argv[0];
-	if (std::strcmp(_basename, BINARY_NAME) == 0)
-	{
-		if (argc == 1)
-		{
-			usage();
-		}
-		
-		else if (argc == 2 && (std::strcmp(argv[1], "--help") == 0))
-		{
-			usage();
-		}
-		
-		else if (argc == 2 && (std::strcmp(argv[1], "--version") == 0))
-		{
-			version();
-		}
-		
-		else
-		{
-			applets_call(argc, argv);
-		}
-	}
-	else
-	{
-		applets_as_main(argc, argv);
-	}
+minibox_version() {
+    std::cout << MINIBOX_NAME << " " << MINIBOX_VERSION << std::endl;
+    return SUCC_CODE;
 }
 
-void
-usage() {
-        std::cout << "Usage:\n"
-BINARY_NAME " --version\n"
-BINARY_NAME " --help\n"
-BINARY_NAME " --list\n"
-BINARY_NAME " command [[arguments]...]\n\n"
-"MiniBox is tool which can be used as an alternative for Busybox\n"
-"and Toybox." << std::endl << std::endl <<
-"MiniBox Source Code <https://github.com/ayuzzh/MiniBox>\n"
-"Email Us for bugs <kmayushkm@gmail.com>\n";
-        std::exit(SUCC_CODE);
-}
+int
+main(int argc, char** argv) {
+    if (argc < 1 || !argv || !argv[0])
+        return ERR_CODE;
 
-void
-version() {
-        std::cout << MINIBOX_NAME << " " << MINIBOX_VERSION << std::endl;
-        std::exit(SUCC_CODE);
+    const char* invoked_name = program_basename(argv[0]);
+
+    if (std::strcmp(invoked_name, MINIBOX_BINARY_NAME) != 0)
+        return applets_as_main(argc, argv);
+
+    if (argc == 1 ||
+        (argc == 2 && std::strcmp(argv[1], "--help") == 0)) {
+        usage();
+        return SUCC_CODE;
+    }
+
+    if (argc == 2 && std::strcmp(argv[1], "--version") == 0)
+        return minibox_version();
+
+    if (argc == 2 && std::strcmp(argv[1], "--list") == 0)
+        return applets_list();
+
+    return applets_call(argc, argv);
 }

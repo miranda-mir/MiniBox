@@ -10,7 +10,7 @@ cmake, ccmake and make packages installed. It is also assumed that you
 already have previous knowledge of using terminal and basic linux commands.__
 
 1. Download the source code from github <br>
-`git clone https://github.com/ayuzzh/MiniBox`.
+`git clone https://github.com/miranda-mir/MiniBox`.
 
 2. Change the directory into root of the repository <br>
 `cd MiniBox`.

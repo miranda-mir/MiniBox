@@ -1,9 +1,7 @@
 #include <minibox.hxx>
 
-#if TRUE_BUILD == 1
 
 int
-true_main() {
-    std::exit(SUCC_CODE);
+true_main(int argc, char *argv[]) {
+    return SUCC_CODE;
 }
-#endif

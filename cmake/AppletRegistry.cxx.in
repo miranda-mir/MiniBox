@@ -1,0 +1,18 @@
+#include "appletRegistry.hxx"
+
+#define MINIBOX_DECLARE(name) extern int name(int, char**);
+@APPLET_DECLARATIONS_TEXT@
+#undef MINIBOX_DECLARE
+
+namespace {
+    const AppletDescriptor applets[] = {
+@APPLET_ENTRIES_TEXT@
+        {0, 0}
+    };
+}
+
+const AppletDescriptor*
+applet_registry(std::size_t& count) {
+    count = (sizeof(applets) / sizeof(applets[0])) - 1;
+    return applets;
+}

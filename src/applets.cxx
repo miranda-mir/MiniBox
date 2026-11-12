@@ -1,108 +1,63 @@
 #include <minibox.hxx>
 
-void applets_call(int argc, char *argv[])
-{
-	int _argc = argc - 1;
-	char** _argv = new char*[_argc];
+namespace {
+    const AppletDescriptor*
+    find_applet(const char* name) {
+        if (!name)
+            return 0;
 
-	for (int i = 0; i < _argc; i++)
-	{
-		_argv[i] = argv[i+1];
-	}
+        std::size_t count = 0;
+        const AppletDescriptor* applets = applet_registry(count);
 
-	if (1 == 2)
-	{ /*This will never execute*/
-	}
+        for (std::size_t i = 0; i < count; ++i) {
+            if (std::strcmp(applets[i].name, name) == 0)
+                return &applets[i];
+        }
 
-#if ECHO_BUILD == ON
-	else if (std::strcmp(argv[1], "echo") == 0)
-	{
-		echo_main(_argc, _argv);
-	}
-#endif
-
-#if TRUE_BUILD == ON
-	else if (std::strcmp(argv[1], "true") == 0)
-	{
-		true_main();
-	}
-#endif
-
-#if FALSE_BUILD == ON
-	else if (std::strcmp(argv[1], "false") == 0)
-	{
-		false_main();
-	}
-#endif
-
-#if CLEAR_BUILD == ON
-	else if (std::strcmp(argv[1], "clear") == 0)
-	{
-		clear_main(_argc, _argv);
-	}
-#endif
-
-#if RESET_BUILD == ON
-	else if (std::strcmp(argv[1], "reset") == 0)
-	{
-		reset_main(_argc, _argv);
-	}
-#endif
-
-	else
-	{
-		std::cout << argv[1] << ": " << CMD_NOT_FOUND << std::endl;
-		std::exit(ERR_CODE);
-	}
-
-	delete[] _argv;
+        return 0;
+    }
 }
 
-void
-applets_as_main(int argc, char *argv[]) {
-	char* _basename = std::strrchr(argv[0], '/') ? std::strrchr(argv[0], '/') + 1 : argv[0];
-	if (1 == 2)
-	{ /*This will never execute*/
-	}
+int
+applets_call(int argc, char** argv) {
+    if (argc < 2 || !argv || !argv[1])
+        return ERR_CODE;
 
-#if ECHO_BUILD == ON
-	else if (std::strcmp(_basename, "echo") == 0)
-	{
-		echo_main(argc, argv);
-	}
-#endif
+    const AppletDescriptor* applet = find_applet(argv[1]);
 
-#if TRUE_BUILD == ON
-	else if (std::strcmp(_basename, "true") == 0)
-	{
-		true_main();
-	}
-#endif
+    if (!applet) {
+        std::cerr << CMD_NOT_FOUND << ": " << argv[1] << std::endl;
+        return NFOUND_CODE;
+    }
 
-#if FALSE_BUILD == ON
-	else if (std::strcmp(_basename, "false") == 0)
-	{
-		false_main();
-	}
-#endif
+    return applet->entry(argc - 1, argv + 1);
+}
 
-#if CLEAR_BUILD == ON
-	else if (std::strcmp(_basename, "clear") == 0)
-	{
-		clear_main(argc, argv);
-	}
-#endif
+int
+applets_as_main(int argc, char** argv) {
+    if (argc < 1 || !argv || !argv[0])
+        return ERR_CODE;
 
-#if CLEAR_BUILD == ON
-	else if (std::strcmp(_basename, "reset") == 0)
-	{
-		reset_main(argc, argv);
-	}
-#endif
+    const char* name = std::strrchr(argv[0], '/');
+    name = name ? name + 1 : argv[0];
 
-	else
-	{
-		std::cout << argv[0] << ": " << CMD_NOT_FOUND << std::endl;
-		std::exit(ERR_CODE);
-	}
+    const AppletDescriptor* applet = find_applet(name);
+
+    if (!applet) {
+        std::cerr << CMD_NOT_FOUND << ": " << name << std::endl;
+        return NFOUND_CODE;
+    }
+
+    return applet->entry(argc, argv);
+}
+
+int
+applets_list() {
+    std::size_t count = 0;
+    const AppletDescriptor* applets = applet_registry(count);
+
+    for (std::size_t i = 0; i < count; ++i)
+        std::cout << applets[i].name << '\n';
+
+    return SUCC_CODE;
 }
