@@ -67,4 +67,5 @@ configure_file(
 
 target_sources(minibox PRIVATE
     "${GENERATED_DIR}/AppletRegistry.cxx"
+    src/libminibox/basename.cxx
 )

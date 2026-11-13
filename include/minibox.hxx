@@ -18,4 +18,12 @@
 #define PATH_MAX 4096
 #endif
 
+#ifndef MINIBOX_VERSION
+#define MINIBOX_VERSION "Unknown"
+#endif
+
+namespace minibox {
+    char *basename(const char* path);
+}
+
 #endif

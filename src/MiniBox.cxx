@@ -1,27 +1,54 @@
 #include <minibox.hxx>
 
 namespace {
-    const char*
-    program_basename(const char* path) {
-        const char* slash = std::strrchr(path, '/');
-        return slash ? slash + 1 : path;
-    }
+    std::size_t count = 0;
+    const AppletDescriptor* applets = applet_registry(count);
+    const std::size_t max_width = 80;
+    const std::size_t indent = 8;
+    std::size_t column = indent;
 
     void
     usage() {
         std::cout
-            << "Usage:\n"
-            << MINIBOX_BINARY_NAME << " --version\n"
-            << MINIBOX_BINARY_NAME << " --help\n"
-            << MINIBOX_BINARY_NAME << " --list\n"
-            << MINIBOX_BINARY_NAME << " command [[arguments]...]\n\n"
-            << "MiniBox is a multicall utility.\n";
+            << MINIBOX_NAME << " v" << MINIBOX_VERSION << " multi-call binary.\n"
+            << "Licensed under GPLv3. See source distribution for detailed\ncopyright notices.\n"
+            << "\n"
+            << "Usage: " << MINIBOX_BINARY_NAME << " [applet [arguments]...]\n"
+            << "   or: " << MINIBOX_BINARY_NAME << " --list\n"
+            << "   or: " << MINIBOX_BINARY_NAME << " --version\n"
+            << "   or: " << "applet [arguments]...\n"
+            << "	MiniBox is a multi-call binary alternative for BusyBox and Toybox.\n"
+            << "	MiniBox does not support yet all the features present in Busybox or\n"
+            << "	Toybox. MiniBox packs common UNIX CLI utilities into one single executable.\n\n"
+            << "Currently available applets:\n";
+
+    std::cout << '\t';
+
+    for (std::size_t i = 0; i < count; ++i) {
+        const char* name = applets[i].name;
+        const std::size_t length = std::strlen(name);
+
+        if (i > 0) {
+            if (column + 2 + length > max_width) {
+                std::cout << ",\n\t";
+                column = indent;
+            } else {
+                std::cout << ", ";
+                column += 2;
+            }
+        }
+
+        std::cout << name;
+        column += length;
+}
+
+std::cout << '\n';
     }
 }
 
 int
 minibox_version() {
-    std::cout << MINIBOX_NAME << " " << MINIBOX_VERSION << std::endl;
+    std::cout << MINIBOX_NAME << " v" << MINIBOX_VERSION << std::endl;
     return SUCC_CODE;
 }
 
@@ -30,7 +57,7 @@ main(int argc, char** argv) {
     if (argc < 1 || !argv || !argv[0])
         return ERR_CODE;
 
-    const char* invoked_name = program_basename(argv[0]);
+    const char *invoked_name = minibox::basename(argv[0]);
 
     if (std::strcmp(invoked_name, MINIBOX_BINARY_NAME) != 0)
         return applets_as_main(argc, argv);
