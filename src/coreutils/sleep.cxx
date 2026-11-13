@@ -24,6 +24,10 @@ sleep_main(int argc, char* argv[]) {
         std::exit(ERR_CODE);
     }
 
+    if(argc == 2 && (std::strcmp(argv[1], "infinity") == 0 || std::strcmp(argv[1], "inf") == 0)) {
+        pause();
+    }
+
     time = std::atoi(argv[1]);
 
     if(time < 0) {
