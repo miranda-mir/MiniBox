@@ -27,3 +27,8 @@ minibox_add_applet(sleep
     ENTRY sleep_main
     SOURCES src/coreutils/sleep.cxx
 )
+
+minibox_add_applet(ksh
+    ENTRY ksh_main
+    SOURCES src/shells/ksh.cxx
+)
