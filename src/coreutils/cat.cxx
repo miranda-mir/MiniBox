@@ -72,8 +72,8 @@ cat_main(int argc, char **argv) {
 
         while ((c = fgetc(file)) != EOF) {
             if (start && n) {
-                std::cout << " \033[F" << line << std::endl;
-                line++;
+                std::cout << "     " << line << "  ";
+                ++line;
                 start = 0;
             }
 
